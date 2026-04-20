@@ -4,32 +4,45 @@
       <stop offset="0%" style="stop-color:#2563eb"/>
       <stop offset="100%" style="stop-color:#1d4ed8"/>
     </linearGradient>
-    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.2"/>
+    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.15"/>
       <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0"/>
     </linearGradient>
   </defs>
 
-  <!-- 배경 원형 -->
+  <!-- 배경 -->
   <rect width="64" height="64" rx="14" fill="url(#bg)"/>
   <rect width="64" height="64" rx="14" fill="url(#shine)"/>
 
-  <!-- 문서 카드 -->
-  <rect x="13" y="11" width="30" height="38" rx="4" fill="white" opacity="0.95"/>
+  <!-- 문서 모양 -->
+  <rect x="12" y="10" width="28" height="36" rx="4" fill="white" opacity="0.12"/>
+  <rect x="12" y="10" width="28" height="36" rx="4" fill="none" stroke="white" stroke-width="1.2" opacity="0.3"/>
 
-  <!-- 텍스트 줄 (프롬프트 라인) -->
-  <rect x="18" y="19" width="20" height="2.5" rx="1.2" fill="#2563eb" opacity="0.8"/>
-  <rect x="18" y="25" width="16" height="2.5" rx="1.2" fill="#93c5fd" opacity="0.9"/>
-  <rect x="18" y="31" width="18" height="2.5" rx="1.2" fill="#93c5fd" opacity="0.9"/>
-  <rect x="18" y="37" width="12" height="2.5" rx="1.2" fill="#93c5fd" opacity="0.9"/>
+  <!-- "프" 큰 글자 -->
+  <text
+    x="26"
+    y="36"
+    font-family="'Noto Sans KR', 'Malgun Gothic', sans-serif"
+    font-size="26"
+    font-weight="700"
+    fill="white"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >프</text>
 
-  <!-- 커서 (깜빡이는 텍스트 커서 느낌) -->
-  <rect x="30" y="37" width="2" height="2.5" rx="0.5" fill="#2563eb"/>
+  <!-- 우측 하단 뱃지 -->
+  <circle cx="46" cy="47" r="10" fill="#1e40af"/>
+  <circle cx="46" cy="47" r="10" fill="white" opacity="0.08"/>
 
-  <!-- 저장 아이콘 (우측 하단 뱃지) -->
-  <circle cx="46" cy="46" r="10" fill="#1e40af"/>
-  <circle cx="46" cy="46" r="10" fill="url(#shine)"/>
-
-  <!-- 저장 심볼 (체크) -->
-  <polyline points="41,46 44.5,50 51,41" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 뱃지 안 작은 텍스트 -->
+  <text
+    x="46"
+    y="47"
+    font-family="'Noto Sans KR', 'Malgun Gothic', sans-serif"
+    font-size="8"
+    font-weight="700"
+    fill="white"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >롬</text>
 </svg>
