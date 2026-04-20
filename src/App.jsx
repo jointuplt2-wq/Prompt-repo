@@ -11,7 +11,7 @@ const TABS = ['전체', '글쓰기', '코딩', '분석', '번역', '기타'];
 function sendNotification(title, body) {
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') {
-    new Notification(title, { body, icon: '/favicon.svg' });
+    new Notification(title, { body, icon: `${import.meta.env.BASE_URL}favicon.svg` });
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then((perm) => {
       if (perm === 'granted') new Notification(title, { body, icon: '/favicon.svg' });
@@ -58,7 +58,7 @@ export default function App() {
       <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <img src="/favicon.svg" alt="icon" className="w-8 h-8" />
+            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="icon" className="w-8 h-8" />
             프롬프트 저장소
           </h1>
           <div className="flex items-center gap-2">
