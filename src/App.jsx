@@ -14,7 +14,7 @@ function sendNotification(title, body) {
     new Notification(title, { body, icon: `${import.meta.env.BASE_URL}favicon.svg` });
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then((perm) => {
-      if (perm === 'granted') new Notification(title, { body, icon: '/favicon.svg' });
+      if (perm === 'granted') new Notification(title, { body, icon: `${import.meta.env.BASE_URL}favicon.svg` });
     });
   }
 }

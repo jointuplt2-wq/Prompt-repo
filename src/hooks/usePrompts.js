@@ -5,31 +5,39 @@ export function usePrompts() {
   const [prompts, setPrompts] = useState(() => loadPrompts());
 
   const add = useCallback((data) => {
-    const next = [createPrompt(data), ...loadPrompts()];
-    savePrompts(next);
-    setPrompts(next);
+    setPrompts((prev) => {
+      const next = [createPrompt(data), ...prev];
+      savePrompts(next);
+      return next;
+    });
   }, []);
 
   const update = useCallback((id, data) => {
-    const next = loadPrompts().map((p) =>
-      p.id === id ? { ...p, ...data, updatedAt: new Date().toISOString().slice(0, 10) } : p
-    );
-    savePrompts(next);
-    setPrompts(next);
+    setPrompts((prev) => {
+      const next = prev.map((p) =>
+        p.id === id ? { ...p, ...data, updatedAt: new Date().toISOString().slice(0, 10) } : p
+      );
+      savePrompts(next);
+      return next;
+    });
   }, []);
 
   const remove = useCallback((id) => {
-    const next = loadPrompts().filter((p) => p.id !== id);
-    savePrompts(next);
-    setPrompts(next);
+    setPrompts((prev) => {
+      const next = prev.filter((p) => p.id !== id);
+      savePrompts(next);
+      return next;
+    });
   }, []);
 
   const incrementCopy = useCallback((id) => {
-    const next = loadPrompts().map((p) =>
-      p.id === id ? { ...p, copyCount: (p.copyCount || 0) + 1 } : p
-    );
-    savePrompts(next);
-    setPrompts(next);
+    setPrompts((prev) => {
+      const next = prev.map((p) =>
+        p.id === id ? { ...p, copyCount: (p.copyCount || 0) + 1 } : p
+      );
+      savePrompts(next);
+      return next;
+    });
   }, []);
 
   return { prompts, add, update, remove, incrementCopy };

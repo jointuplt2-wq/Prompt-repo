@@ -8,13 +8,13 @@ const TIPS = [
 ];
 
 export default function GuidePanel() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(() => localStorage.getItem('guide_open') !== 'false');
 
   return (
     <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-xl mb-6">
       <button
         className="w-full flex items-center justify-between px-5 py-4 text-left"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen((v) => { const next = !v; localStorage.setItem('guide_open', next); return next; })}
       >
         <span className="font-semibold text-blue-800 dark:text-blue-300 text-sm">📖 프롬프트 기재 요령</span>
         <span className="text-blue-500 dark:text-blue-400 text-xs">{open ? '접기 ▲' : '펼치기 ▼'}</span>

@@ -4,24 +4,29 @@ import PromptForm from './PromptForm';
 export default function DetailModal({ prompt, onClose, onUpdate, onDelete, onCopy }) {
   const [editing, setEditing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
-  function handleCopy() {
+  async function handleCopy() {
+    let ok = false;
     try {
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(prompt.content).catch(() => {});
+        await navigator.clipboard.writeText(prompt.content);
+        ok = true;
       } else {
         const el = document.createElement('textarea');
         el.value = prompt.content;
         el.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
         document.body.appendChild(el);
         el.select();
-        document.execCommand('copy');
+        ok = document.execCommand('copy');
         document.body.removeChild(el);
       }
     } catch (_) {}
-    onCopy(prompt.id);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (ok) {
+      onCopy(prompt.id);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   }
 
   function handleSave(data) {
@@ -30,10 +35,9 @@ export default function DetailModal({ prompt, onClose, onUpdate, onDelete, onCop
   }
 
   function handleDelete() {
-    if (window.confirm('이 프롬프트를 삭제할까요?')) {
-      onDelete(prompt.id);
-      onClose();
-    }
+    if (!confirmDelete) { setConfirmDelete(true); return; }
+    onDelete(prompt.id);
+    onClose();
   }
 
   return (
@@ -78,10 +82,23 @@ export default function DetailModal({ prompt, onClose, onUpdate, onDelete, onCop
                   className="border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                   수정
                 </button>
-                <button onClick={handleDelete}
-                  className="border border-red-200 dark:border-red-800 text-red-500 dark:text-red-400 text-sm px-4 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900 transition">
-                  삭제
-                </button>
+                {confirmDelete ? (
+                  <>
+                    <button onClick={handleDelete}
+                      className="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-lg transition">
+                      확인
+                    </button>
+                    <button onClick={() => setConfirmDelete(false)}
+                      className="border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 text-sm px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                      취소
+                    </button>
+                  </>
+                ) : (
+                  <button onClick={handleDelete}
+                    className="border border-red-200 dark:border-red-800 text-red-500 dark:text-red-400 text-sm px-4 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900 transition">
+                    삭제
+                  </button>
+                )}
               </div>
             </>
           )}
